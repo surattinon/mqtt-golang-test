@@ -1,8 +1,9 @@
-package main
+package tests
 
 import (
 	"encoding/json"
 	"fmt"
+	"testing"
 	"time"
 
 	MQTT "github.com/eclipse/paho.mqtt.golang"
@@ -55,7 +56,7 @@ var messagePubHandler MQTT.MessageHandler = func(client MQTT.Client, msg MQTT.Me
 	fmt.Printf("Message: %s\n", msg.Payload())
 }
 
-func main() {
+func TestSensors(t *testing.T) {
 	opts := MQTT.NewClientOptions()
 	opts.AddBroker("tcp://localhost:1883") // MQTT Broker (Mosquitto)
 	opts.SetClientID("go_mqtt_client")
