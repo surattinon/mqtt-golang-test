@@ -2,8 +2,8 @@
 
 ## Dependencies
 
-Golang
-Docker (optional)
+- Golang
+- Docker (optional)
 
 ## Build
 
