@@ -22,6 +22,7 @@ cd mqtt-golang-test
 
 1. Build the project and run the application:
    ```bash
+   mkdir bin
    go build -o bin/mqtt && ./bin/mqtt
    ```
 
