@@ -59,7 +59,7 @@ var messagePubHandler MQTT.MessageHandler = func(client MQTT.Client, msg MQTT.Me
 func TestSensors(t *testing.T) {
 	opts := MQTT.NewClientOptions()
 	opts.AddBroker("tcp://localhost:1883") // MQTT Broker (Mosquitto)
-	opts.SetClientID("go_mqtt_client")
+	opts.SetClientID("test_mqtt_client")
 	opts.SetDefaultPublishHandler(messagePubHandler)
 
 	// Connect to the MQTT broker

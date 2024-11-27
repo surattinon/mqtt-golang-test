@@ -1,0 +1,17 @@
+version: "3"
+
+networks:
+  mqtt:
+
+services:
+  mqtt-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    ports:
+      - "1883:1883"
+
+    # restart: unless-stopped
+    networks:
+      - mqtt
