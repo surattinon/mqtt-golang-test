@@ -9,6 +9,12 @@ RUN go mod download
 
 COPY . .
 
+# MQTT Sub Test
+RUN go run main.go & \
+	sleep 5 && \
+	go test -v ./... && \
+	pkill -f main.go
+
 RUN GOOS=linux GOARCH=arm64 go build -o /bin/mqtt-gateway
 
 FROM --platform=linux/arm64/v8 arm64v8/alpine:latest
