@@ -56,67 +56,76 @@ var messagePubHandler MQTT.MessageHandler = func(client MQTT.Client, msg MQTT.Me
 	fmt.Printf("Message: %s\n", msg.Payload())
 }
 
+var (
+	topic      = "sensors/data"
+	brokerIp   = "localhost"
+	brokerPort = "1883"
+)
+
 func TestSensors(t *testing.T) {
+	MQTT_broker := fmt.Sprintf("tcp://%v:%v", brokerIp, brokerPort)
 	opts := MQTT.NewClientOptions()
-	opts.AddBroker("tcp://localhost:1883") // MQTT Broker (Mosquitto)
+	opts.AddBroker(MQTT_broker) // MQTT Broker (Mosquitto)
 	opts.SetClientID("test_mqtt_client")
 	opts.SetDefaultPublishHandler(messagePubHandler)
 
 	// Connect to the MQTT broker
 	client := MQTT.NewClient(opts)
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
-		fmt.Println(token.Error())
+		t.Fatalf("Failed to connect to MQTT Broker: %v", token.Error())
+		return
+	} else {
+		t.Log("Connected to MQTT Broker successfully")
+	}
+
+	// Simulate sensor data for test connection
+	data := SensorData{
+		DeviceID:   13504477,
+		MACAddress: "EC64C9CE0FDD",
+		Timestamp:  time.Now().Unix(),
+		PIR: PIR{
+			Motion:  false,
+			Changed: false,
+		},
+		IAQ: IAQ{
+			CO2:        869,
+			TVOC:       241,
+			Resistance: 239012,
+			Status:     0,
+		},
+		AGS: AGS{
+			GasResistance: 18962.7,
+			TVOC:          938,
+		},
+		DHT: DHT{
+			TemperatureC: 27.9,
+			TemperatureF: 82.22,
+			Humidity:     50.1,
+			HeatIndexC:   28.34619,
+			HeatIndexF:   83.02364,
+		},
+		PMS: PMS{
+			PM1:  2,
+			PM25: 3,
+			PM10: 3,
+		},
+	}
+	// Serialize data to JSON
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		t.Fatalf("Error marshaling data: %v", err)
 		return
 	}
 
-	// Simulate sensor data
-	for {
-		data := SensorData{
-			DeviceID:   13504477,
-			MACAddress: "EC64C9CE0FDD",
-			Timestamp:  time.Now().Unix(),
-			PIR: PIR{
-				Motion:  false,
-				Changed: false,
-			},
-			IAQ: IAQ{
-				CO2:        869,
-				TVOC:       241,
-				Resistance: 239012,
-				Status:     0,
-			},
-			AGS: AGS{
-				GasResistance: 18962.7,
-				TVOC:          938,
-			},
-			DHT: DHT{
-				TemperatureC: 27.9,
-				TemperatureF: 82.22,
-				Humidity:     50.1,
-				HeatIndexC:   28.34619,
-				HeatIndexF:   83.02364,
-			},
-			PMS: PMS{
-				PM1:  2,
-				PM25: 3,
-				PM10: 3,
-			},
-		}
-		// Serialize data to JSON
-		jsonData, err := json.Marshal(data)
-		if err != nil {
-			fmt.Println("Error marshaling data:", err)
-			return
-		}
-
-		// Publish to MQTT topic
-		token := client.Publish("sensors/data", 0, false, jsonData)
-		token.Wait()
-
-		fmt.Printf("Sent data: %s\n", string(jsonData))
-
-		time.Sleep(5 * time.Second) // Delay between messages
+	// Publish to MQTT topic
+	token := client.Publish("sensors/data", 0, false, jsonData)
+	if token.Wait() && token.Error() != nil {
+		t.Fatalf("Failed to subscribe to topic %v: %v", topic, token.Error())
 	}
+
+	fmt.Printf("Sent data: %s\n", string(jsonData))
+
+	time.Sleep(2 * time.Second) // Delay between messages
 
 	client.Disconnect(250)
 }
