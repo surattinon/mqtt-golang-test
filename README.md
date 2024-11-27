@@ -5,9 +5,15 @@
 - Golang
 - Docker (optional)
 
-## Build
+## Build (Without Docker)
 
 ```go
 go mod tidy
 go bulid -o mqtt && ./mqtt
+```
+
+## Build (With Docker)
+
+```bash
+docker compose up
 ```
