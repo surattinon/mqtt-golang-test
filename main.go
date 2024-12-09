@@ -12,6 +12,7 @@ import (
 	"github.com/mochi-mqtt/server/v2/listeners"
 	"github.com/mochi-mqtt/server/v2/packets"
 
+	"github.com/conxtech/api"
 	"github.com/conxtech/jsonhandler"
 )
 
@@ -57,14 +58,14 @@ func main() {
 
 		clearTerminal()
 
-		fmt.Println("Received JSON")
-
 		// Use jsonhandler to parse the JSON
 		sensorData, err := jsonhandler.ParseJSON(jsonString)
 		if err != nil {
 			server.Log.Error("Failed to parse JSON", "error", err)
 			return
 		}
+
+		api.Sensors = sensorData
 
 		// Access the fields
 		fmt.Printf("Device ID: %d\n", sensorData.DeviceID)
@@ -93,6 +94,8 @@ func main() {
 
 	server.Log.Info("inline client subscribing")
 	_ = server.Subscribe("sensors/data", 1, callbackFn)
+
+	api.ApiService()
 
 	// Run server until interrupted
 	<-done
