@@ -11,6 +11,7 @@ services:
 
     ports:
       - "1883:1883"
+      - "8080:8080"
 
     # restart: unless-stopped
     networks:

@@ -22,5 +22,5 @@ FROM --platform=linux/arm64/v8 arm64v8/alpine:latest
 COPY --from=build /bin/mqtt-gateway /bin
 
 WORKDIR /app
-EXPOSE 1883
+EXPOSE 1883 8080
 CMD ["/bin/mqtt-gateway"]
