@@ -67,29 +67,29 @@ func main() {
 
 		api.Sensors = sensorData
 
-		// Access the fields
-		fmt.Printf("Device ID: %d\n", sensorData.DeviceID)
-		fmt.Printf("MAC Address: %s\n", sensorData.MACAddress)
-		fmt.Printf("UpTime: %d\n", sensorData.UpTime)
-
-		// PIR data
-		fmt.Printf("PIR Sensor | Motion: %v, Changed: %v\n", sensorData.PIR.IsMotion, sensorData.PIR.HasChanged)
-
-		// IAQ data
-		fmt.Printf("IAQ Sensor | CO2: %d, TVOC: %d, Resistance: %.2f, Status: %d\n",
-			sensorData.IAQ.CO2, sensorData.IAQ.TVOC, sensorData.IAQ.Resistance, sensorData.IAQ.Status)
-
-		// AGS data
-		fmt.Printf("AGS Sensor | Gas Resistance: %.2f, TVOC: %d\n",
-			sensorData.AGS.Resistance, sensorData.AGS.TVOC)
-
-		// DHT data
-		fmt.Printf("DHT Sensor | Temperature (C): %.2f, Humidity: %.2f\n",
-			sensorData.DHT.TemperatureC, sensorData.DHT.Humidity)
-
-		// PMS data
-		fmt.Printf("PMS Sensor | PM1: %d, PM2.5: %d, PM10: %d\n",
-			sensorData.PMS.PM1, sensorData.PMS.PM2_5, sensorData.PMS.PM10)
+		// // Access the fields
+		// fmt.Printf("Device ID: %d\n", sensorData.DeviceID)
+		// fmt.Printf("MAC Address: %s\n", sensorData.MACAddress)
+		// fmt.Printf("UpTime: %d\n", sensorData.UpTime)
+		//
+		// // PIR data
+		// fmt.Printf("PIR Sensor | Motion: %v, Changed: %v\n", sensorData.PIR.IsMotion, sensorData.PIR.HasChanged)
+		//
+		// // IAQ data
+		// fmt.Printf("IAQ Sensor | CO2: %d, TVOC: %d, Resistance: %.2f, Status: %d\n",
+		// 	sensorData.IAQ.CO2, sensorData.IAQ.TVOC, sensorData.IAQ.Resistance, sensorData.IAQ.Status)
+		//
+		// // AGS data
+		// fmt.Printf("AGS Sensor | Gas Resistance: %.2f, TVOC: %d\n",
+		// 	sensorData.AGS.Resistance, sensorData.AGS.TVOC)
+		//
+		// // DHT data
+		// fmt.Printf("DHT Sensor | Temperature (C): %.2f, Humidity: %.2f\n",
+		// 	sensorData.DHT.TemperatureC, sensorData.DHT.Humidity)
+		//
+		// // PMS data
+		// fmt.Printf("PMS Sensor | PM1: %d, PM2.5: %d, PM10: %d\n",
+		// 	sensorData.PMS.PM1, sensorData.PMS.PM2_5, sensorData.PMS.PM10)
 	}
 
 	server.Log.Info("inline client subscribing")
