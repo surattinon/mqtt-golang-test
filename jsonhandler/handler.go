@@ -7,45 +7,51 @@ import (
 
 // PIRData represents the "pir" object in the JSON
 type PIRData struct {
-	Motion  bool `json:"motion"`
-	Changed bool `json:"changed"`
+	IsValid    bool `json:"isValid"`
+	IsMotion   bool `json:"isMotion"`
+	HasChanged bool `json:"hasChanged"`
+	LastTime   int  `json:"lastTime"`
+	Status     int  `json:"status"`
 }
 
-// IAQData represents the "iaq" object in the JSON
 type IAQData struct {
+	IsValid    int     `json:"isValid"`
 	CO2        int     `json:"co2"`
 	TVOC       int     `json:"tvoc"`
-	Resistance float64 `json:"resistance"`
+	Resistance float64 `json:"ohms"`
 	Status     int     `json:"status"`
 }
 
-// AGSData represents the "ags" object in the JSON
 type AGSData struct {
-	GasResistance float64 `json:"gasResistance"`
-	TVOC          int     `json:"tvoc"`
+	IsValid    int     `json:"isValid"`
+	TVOC       int     `json:"tvoc"`
+	Resistance float64 `json:"ohms"`
+	Status     int     `json:"status"`
 }
 
-// DHTData represents the "dht" object in the JSON
 type DHTData struct {
-	TemperatureC float64 `json:"temperatureC"`
-	TemperatureF float64 `json:"temperatureF"`
-	Humidity     float64 `json:"humidity"`
-	HeatIndexC   float64 `json:"heatIndexC"`
-	HeatIndexF   float64 `json:"heatIndexF"`
+	IsValid      int     `json:"isValid"`
+	TemperatureC float64 `json:"tempC"`
+	Humidity     float64 `json:"humid"`
+	Status       int     `json:"status"`
 }
 
-// PMSData represents the "pms" object in the JSON
 type PMSData struct {
-	PM1   int `json:"pm1"`
-	PM2_5 int `json:"pm2_5"`
-	PM10  int `json:"pm10"`
+	IsValid int `json:"isValid"`
+	PM1     int `json:"pm1"`
+	PM2_5   int `json:"pm25"`
+	PM10    int `json:"pm10"`
+	PM1ATM  int `json:"pm1Atm"`
+	PM25ATM int `json:"pm25Atm"`
+	PM10ATM int `json:"pm10Atm"`
+	Status  int `json:"status"`
 }
 
 // SensorData represents the entire JSON structure
 type SensorData struct {
-	DeviceID   int     `json:"device_id"`
-	MACAddress string  `json:"MAC_Address"`
-	Timestamp  int64   `json:"timestamp"`
+	DeviceID   int     `json:"devId"`
+	MACAddress string  `json:"mac"`
+	UpTime     int64   `json:"upTime"`
 	PIR        PIRData `json:"pir"`
 	IAQ        IAQData `json:"iaq"`
 	AGS        AGSData `json:"ags"`

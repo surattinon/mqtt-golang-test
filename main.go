@@ -70,10 +70,10 @@ func main() {
 		// Access the fields
 		fmt.Printf("Device ID: %d\n", sensorData.DeviceID)
 		fmt.Printf("MAC Address: %s\n", sensorData.MACAddress)
-		fmt.Printf("Timestamp: %d\n", sensorData.Timestamp)
+		fmt.Printf("UpTime: %d\n", sensorData.UpTime)
 
 		// PIR data
-		fmt.Printf("PIR Sensor | Motion: %v, Changed: %v\n", sensorData.PIR.Motion, sensorData.PIR.Changed)
+		fmt.Printf("PIR Sensor | Motion: %v, Changed: %v\n", sensorData.PIR.IsMotion, sensorData.PIR.HasChanged)
 
 		// IAQ data
 		fmt.Printf("IAQ Sensor | CO2: %d, TVOC: %d, Resistance: %.2f, Status: %d\n",
@@ -81,7 +81,7 @@ func main() {
 
 		// AGS data
 		fmt.Printf("AGS Sensor | Gas Resistance: %.2f, TVOC: %d\n",
-			sensorData.AGS.GasResistance, sensorData.AGS.TVOC)
+			sensorData.AGS.Resistance, sensorData.AGS.TVOC)
 
 		// DHT data
 		fmt.Printf("DHT Sensor | Temperature (C): %.2f, Humidity: %.2f\n",
